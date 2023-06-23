@@ -38,7 +38,7 @@ const App = () => {
   return (
     <div className="container">
       <h1 className="title">Przelicznik walut</h1>
-      <form onSubmit={handleConvert}>
+      <form className="converter" onSubmit={handleConvert}>
         <label className="currency-amount" htmlFor="currency">
           Wybierz walutę:
         </label>
