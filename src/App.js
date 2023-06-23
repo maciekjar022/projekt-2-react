@@ -4,9 +4,11 @@ import "./App.css";
 const App = () => {
   const [result, setResult] = useState("");
 
-  const handleConvert = () => {
-    const currency = document.getElementById("currency").value;
-    const amount = document.getElementById("amount").value;
+  const handleConvert = (event) => {
+    event.preventDefault();
+
+    const currency = event.target.currency.value;
+    const amount = event.target.amount.value;
 
     if (amount <= 0) {
       alert("Proszę podać liczbę większą od zera.");
@@ -29,7 +31,6 @@ const App = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
         setResult("Wystąpił błąd. Proszę spróbować później.");
       });
   };
@@ -37,24 +38,34 @@ const App = () => {
   return (
     <div className="container">
       <h1 className="title">Przelicznik walut</h1>
-      <label htmlFor="currency">Wybierz walutę:</label>
-      <select className="operator" name="currency" id="currency">
-        <option value="EUR">EUR</option>
-        <option value="USD">USD</option>
-        <option value="CHF">CHF</option>
-      </select>
+      <form onSubmit={handleConvert}>
+        <label className="currency-amount" htmlFor="currency">
+          Wybierz walutę:
+        </label>
+        <select className="operator" name="currency" id="currency">
+          <option value="EUR">EUR</option>
+          <option value="USD">USD</option>
+          <option value="CHF">CHF</option>
+        </select>
 
-      <label htmlFor="amount">Wpisz kwotę:</label>
-      <input className="operator" type="number" id="amount" />
+        <label className="currency-amount" htmlFor="amount">
+          Wpisz kwotę:
+        </label>
+        <input className="operator" type="number" id="amount" />
 
-      <button className="operator" onClick={handleConvert}>
-        Przelicz
-      </button>
+        <button className="operator" type="submit">
+          Przelicz
+        </button>
+      </form>
 
-      <h2>Rezultat:</h2>
-      <div className="result" id="result">
-        <p id="resultText">{result}</p>
-      </div>
+      {result ? (
+        <>
+          <h2>Rezultat:</h2>
+          <div className="result" id="result">
+            <p id="resultText">{result}</p>
+          </div>
+        </>
+      ) : null}
     </div>
   );
 };

@@ -22,7 +22,7 @@ body {
 
 }
 
-label {
+.currency-amount {
   font-size: 30px;
 }
 
